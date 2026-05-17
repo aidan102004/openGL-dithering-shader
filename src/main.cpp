@@ -18,42 +18,17 @@ using namespace std;
 GLfloat vertices[] =
 {   //        COORDINATES            COLORS              TexCoord        NORMALS
 
-    // Bottom side
-    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,     0.0f, 0.0f,     0.0f, -1.0f,  0.0f,
-    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,     0.0f, 5.0f,     0.0f, -1.0f,  0.0f,
-     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 5.0f,     0.0f, -1.0f,  0.0f,
-     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 0.0f,     0.0f, -1.0f,  0.0f,
-
-    // Left side
-    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,     0.0f, 0.0f,    -0.8f,  0.5f,  0.0f,
-    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 0.0f,    -0.8f,  0.5f,  0.0f,
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,     2.5f, 5.0f,    -0.8f,  0.5f,  0.0f,
-
-    // Non-facing side
-    -0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 0.0f,     0.0f,  0.5f, -0.8f,
-     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 5.0f,     0.0f,  0.5f, -0.8f,
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,     2.5f, 5.0f,     0.0f,  0.5f, -0.8f,
-
-    // Right side
-     0.5f, 0.0f, -0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 0.0f,     0.8f,  0.5f,  0.0f,
-     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 5.0f,     0.8f,  0.5f,  0.0f,
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,     2.5f, 5.0f,     0.8f,  0.5f,  0.0f,
-
-    // Facing side
-    -0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,     0.0f, 0.0f,     0.0f,  0.5f,  0.8f,
-     0.5f, 0.0f,  0.5f,     0.83f, 0.70f, 0.44f,     5.0f, 0.0f,     0.0f,  0.5f,  0.8f,
-     0.0f, 0.8f,  0.0f,     0.92f, 0.86f, 0.76f,     2.5f, 5.0f,     0.0f,  0.5f,  0.8f
+    -1.0f, 0.0f,  1.0f,     0.0f, 0.0f, 0.0f,     0.0f, 0.0f,     0.0f, 1.0f, 0.0f,
+    -1.0f, 0.0f, -1.0f,     0.0f, 0.0f, 0.0f,     0.0f, 1.0f,     0.0f, 1.0f, 0.0f,
+     1.0f, 0.0f, -1.0f,     0.0f, 0.0f, 0.0f,     1.0f, 1.0f,     0.0f, 1.0f, 0.0f,
+     1.0f, 0.0f,  1.0f,     0.0f, 0.0f, 0.0f,     1.0f, 0.0f,     0.0f, 1.0f, 0.0f
 };
 
 // Indices for vertices order
 GLuint indices[] =
 {
-    0, 1, 2,   // Bottom side
-    0, 2, 3,   // Bottom side
-    4, 6, 5,   // Left side
-    7, 9, 8,   // Non-facing side
-    10, 12, 11, // Right side
-    13, 15, 14  // Facing side
+    0, 1, 2,
+    0, 2, 3
 };
 
 GLfloat lightVertices[] =
@@ -166,7 +141,7 @@ int main() {
 
     //activate the light shader
     lightShader.Activate();
-    glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel)); //gets the location of the uniform in the shader and writes the values into the slot
+    glUniformMatrix4fv(glGetUniformLocation(lightShader.ID, "model"), 1, GL_FALSE, glm::value_ptr(lightModel)); //gets the location of the uniform in the shader and writes the values into the slot, value_ptr returns pointer to the first element of the matrix
     glUniform4f(glGetUniformLocation(lightShader.ID, "lightColor"), lightColor.x, lightColor.y, lightColor.z, lightColor.w);
     shaderProgram.Activate();
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram.ID, "model"), 1, GL_FALSE, glm::value_ptr(pyramidModel));
@@ -181,8 +156,12 @@ int main() {
 
 
    //TEXTURE
-   Texture popCat("brick.png", GL_TEXTURE_2D, GL_TEXTURE0, GL_RGBA, GL_UNSIGNED_BYTE); //Creates a new texture object
-   popCat.texUnit(shaderProgram, "tex0", 0); //sets the value of the uniform
+   Texture plankTex("planks.png", GL_TEXTURE_2D, 0, GL_RGBA, GL_UNSIGNED_BYTE); //Creates a new texture object
+   plankTex.texUnit(shaderProgram, "tex0", 0); //sets the value of the uniform
+
+   //create a second texture specular map, we use GL_RED because it is only black and white
+   Texture planksSpecMap("planksSpec.png", GL_TEXTURE_2D, 1, GL_RED, GL_UNSIGNED_BYTE);
+   planksSpecMap.texUnit(shaderProgram, "tex1", 1); //sets the value by passing in the uniform and shader program
 
     //enables the depth buffer, which stores the z value for every pixel and compares which is closer to the camera to draw it
     glEnable(GL_DEPTH_TEST);
@@ -207,7 +186,8 @@ int main() {
 
         camera.Matrix(shaderProgram, "camMatrix");
 
-        popCat.Bind();
+        plankTex.Bind();
+        planksSpecMap.Bind();
         //bind the vao so opengl knows how to use it
         VAO1.Bind();
         //draws the elements in order 
@@ -227,7 +207,8 @@ int main() {
     VAO1.Delete();
     VBO1.Delete();
     EBO1.Delete();
-    popCat.Delete();
+    plankTex.Delete();
+    planksSpecMap.Delete();
     shaderProgram.Delete();
 
     lightVAO.Delete();
