@@ -12,13 +12,6 @@
                 "-L${workspaceFolder}/lib",
                 "${workspaceFolder}/src/main.cpp",
                 "${workspaceFolder}/src/glad.c",
-                "${workspaceFolder}/src/shaderclass.cpp",
-                "${workspaceFolder}/src/vao.cpp",
-                "${workspaceFolder}/src/vbo.cpp",
-                "${workspaceFolder}/src/ebo.cpp",
-                "${workspaceFolder}/src/stb.cpp",
-                "${workspaceFolder}/src/texture.cpp",
-                "${workspaceFolder}/src/camera.cpp",
                 "-lglfw3dll",
                 "-o",
                 "${workspaceFolder}/cutable.exe"
