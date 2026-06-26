@@ -2,39 +2,43 @@
 #include <fstream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include<glm/glm.hpp>
+#include<glm/gtc/matrix_transform.hpp>
+#include<glm/gtc/type_ptr.hpp>
 
 using namespace std; 
 float vertices[] = {
-    // Front face
-    -0.5f, -0.5f,  0.5f,
-     0.5f, -0.5f,  0.5f,
-     0.5f,  0.5f,  0.5f,
-    -0.5f,  0.5f,  0.5f,
-    // Back face
-    -0.5f, -0.5f, -0.5f,
-     0.5f, -0.5f, -0.5f,
-     0.5f,  0.5f, -0.5f,
-    -0.5f,  0.5f, -0.5f,
-    // Left face
-    -0.5f, -0.5f, -0.5f,
-    -0.5f, -0.5f,  0.5f,
-    -0.5f,  0.5f,  0.5f,
-    -0.5f,  0.5f, -0.5f,
-    // Right face
-     0.5f, -0.5f, -0.5f,
-     0.5f, -0.5f,  0.5f,
-     0.5f,  0.5f,  0.5f,
-     0.5f,  0.5f, -0.5f,
-    // Top face
-    -0.5f,  0.5f,  0.5f,
-     0.5f,  0.5f,  0.5f,
-     0.5f,  0.5f, -0.5f,
-    -0.5f,  0.5f, -0.5f,
-    // Bottom face
-    -0.5f, -0.5f,  0.5f,
-     0.5f, -0.5f,  0.5f,
-     0.5f, -0.5f, -0.5f,
-    -0.5f, -0.5f, -0.5f,
+    // pos                  // color (RGB)
+    // Front face (red)
+    -0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
+    // Back face (green)
+    -0.5f, -0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
+    // Left face (blue)
+    -0.5f, -0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,   0.0f, 0.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,   0.0f, 0.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
+    // Right face (yellow)
+     0.5f, -0.5f, -0.5f,   1.0f, 1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,   1.0f, 1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 0.0f,
+    // Top face (cyan)
+    -0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 1.0f,
+    // Bottom face (magenta)
+    -0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 1.0f,
 };
 
 unsigned int indices[] = {
@@ -70,8 +74,8 @@ int main() {
     glViewport(0, 0, 800, 600);
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
-    std::string vertexCode = get_file_contents("default.vert");
-    std::string fragmentCode = get_file_contents("default.frag");
+    std::string vertexCode = get_file_contents("D:/Aidan/program/dithering/Resources/default.vert");
+    std::string fragmentCode = get_file_contents("D:/Aidan/program/dithering/Resources/default.frag");
     const char* vertexSource = vertexCode.c_str();
 	const char* fragmentSource = fragmentCode.c_str();
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -100,14 +104,18 @@ int main() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-
-
+    GLuint uniID = glGetUniformLocation(shaderProgram, "scale");
+    float rotation = 0.0f;
+	double prevTime = glfwGetTime();
+    glEnable(GL_DEPTH_TEST);
     
     while (!glfwWindowShouldClose(window)) {
 
@@ -115,10 +123,31 @@ int main() {
 
 
         glClearColor(0.3f, 0.6f, 0.3f, 0.1f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(shaderProgram);
+        double crntTime = glfwGetTime();
+		if (crntTime - prevTime >= 1 / 60)
+		{
+			rotation += 0.5f;
+			prevTime = crntTime;
+		}
+        glm::mat4 model = glm::mat4(1.0f);
+		glm::mat4 view = glm::mat4(1.0f);
+		glm::mat4 proj = glm::mat4(1.0f);
+        model = glm::rotate(model, glm::radians(rotation), glm::vec3(0.0f, 1.0f, 0.0f));
+		view = glm::translate(view, glm::vec3(0.0f, 0, -4.0f));
+		proj = glm::perspective(glm::radians(45.0f), (float)800 / 800, 0.1f, 100.0f);
+		int modelLoc = glGetUniformLocation(shaderProgram, "model");
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+		int viewLoc = glGetUniformLocation(shaderProgram, "view");
+		glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+		int projLoc = glGetUniformLocation(shaderProgram, "proj");
+		glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(proj));
+
+		glUniform1f(uniID, 0.5f);
+	
         glBindVertexArray(VAO);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(int), GL_UNSIGNED_INT, 0);
 
 
 
