@@ -8,37 +8,37 @@
 
 using namespace std; 
 float vertices[] = {
-    // pos                  // color (RGB)
-    // Front face (red)
-    -0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,
-    // Back face (green)
-    -0.5f, -0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,
-    // Left face (blue)
-    -0.5f, -0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,   0.0f, 0.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,   0.0f, 0.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,   0.0f, 0.0f, 1.0f,
-    // Right face (yellow)
-     0.5f, -0.5f, -0.5f,   1.0f, 1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,   1.0f, 1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,   1.0f, 1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,   1.0f, 1.0f, 0.0f,
-    // Top face (cyan)
-    -0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 1.0f,
-    // Bottom face (magenta)
-    -0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 1.0f,
+    // pos                  // normal          // color (white)
+    // Front face (normal points +Z)
+    -0.5f, -0.5f,  0.5f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,   0.0f, 0.0f, 1.0f,   1.0f, 1.0f, 1.0f,
+    // Back face (normal points -Z)
+    -0.5f, -0.5f, -0.5f,   0.0f, 0.0f,-1.0f,   1.0f, 1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,   0.0f, 0.0f,-1.0f,   1.0f, 1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,   0.0f, 0.0f,-1.0f,   1.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,   0.0f, 0.0f,-1.0f,   1.0f, 1.0f, 1.0f,
+    // Left face (normal points -X)
+    -0.5f, -0.5f, -0.5f,  -1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  -1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  -1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  -1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    // Right face (normal points +X)
+     0.5f, -0.5f, -0.5f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    // Top face (normal points +Y)
+    -0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,   0.0f, 1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    // Bottom face (normal points -Y)
+    -0.5f, -0.5f,  0.5f,   0.0f,-1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,   0.0f,-1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,   0.0f,-1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,   0.0f,-1.0f, 0.0f,   1.0f, 1.0f, 1.0f,
 };
 
 unsigned int indices[] = {
@@ -104,10 +104,14 @@ int main() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+
+    int stride = 9 * sizeof(float);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, stride, (void*)0);
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, stride, (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, stride, (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
@@ -122,9 +126,11 @@ int main() {
         processInput(window);
 
 
-        glClearColor(0.3f, 0.6f, 0.3f, 0.1f);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glUseProgram(shaderProgram);
+        glUniform3f(glGetUniformLocation(shaderProgram, "lightColor"), 1.0f, 1.0f, 1.0f);
+        glUniform3f(glGetUniformLocation(shaderProgram, "lightPos"),   2.0f, 3.0f, 2.0f);
         double crntTime = glfwGetTime();
 		if (crntTime - prevTime >= 1 / 60)
 		{
